@@ -1,0 +1,31 @@
+{
+  "name": "phone-disassembly",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "build:models": "npm run models:deps && npm run models:blender && npm run models:pack",
+    "models:deps": "test -d tools/blender/.vendor/numpy || uv pip install -q --python $(blender -b --python-expr \"import sys;print('PYV',sys.version_info[0],sys.version_info[1],sep='.')\" | sed -n 's/^PYV\\.//p') --target tools/blender/.vendor numpy",
+    "models:blender": "blender -b --python tools/blender/build.py -- --model iphone_18_pro",
+    "models:pack": "gltf-transform meshopt public/models/iphone-18-pro.raw.glb public/models/iphone-18-pro.glb --level medium --quantize-color 16",
+    "compare": "uv run tools/compare/compare.py --model refs/out/iphone-18-pro.dev.glb --label after --measurements tools/measure/models/iphone-18-pro/measurements.json --config tools/compare/iphone-18-pro.json --rectified-dir refs/out --out refs/out/compare/after && uv run tools/compare/report.py",
+    "shots": "node tools/shots.mjs"
+  },
+  "dependencies": {
+    "three": "^0.187.0"
+  },
+  "devDependencies": {
+    "@gltf-transform/cli": "^4.5.1",
+    "@types/node": "^26.6.6",
+    "@types/three": "^0.187.0",
+    "playwright-core": "^1.65.0",
+    "typescript": "5.9",
+    "vite": "^8.3.6",
+    "vitest": "^5.1.0"
+  }
+}

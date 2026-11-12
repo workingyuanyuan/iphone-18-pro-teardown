@@ -1,0 +1,890 @@
+{
+ "label": "before",
+ "model": "refs/out/legacy-parts.json",
+ "exterior": [
+  {
+   "feature": "機身寬",
+   "model": 73.0,
+   "reference": 71.85,
+   "error": 1.15,
+   "source": "Apple p.2"
+  },
+  {
+   "feature": "機身高",
+   "model": 150.18,
+   "reference": 150.01,
+   "error": 0.17,
+   "source": "Apple p.2"
+  },
+  {
+   "feature": "機身厚（背板到螢幕玻璃頂）",
+   "model": 8.754,
+   "reference": 8.75,
+   "error": 0.004,
+   "source": "Apple p.2"
+  },
+  {
+   "feature": "機身正面輪廓（含四角）",
+   "model": [
+    73.0,
+    150.18
+   ],
+   "reference": [
+    71.85,
+    150.01
+   ],
+   "error": 8.26,
+   "hausdorff": 12.92,
+   "source": "Apple p.2 DETAIL A"
+  },
+  {
+   "feature": "側邊截面（10 個標註點到模型表面）",
+   "model": "max 0.60",
+   "reference": "DETAIL B",
+   "error": 0.605,
+   "source": "Apple p.2 DETAIL B"
+  },
+  {
+   "feature": "超廣角鏡頭中心",
+   "model": [
+    22.0,
+    64.0
+   ],
+   "reference": [
+    21.555,
+    60.635
+   ],
+   "error": 3.394,
+   "source": "Apple p.2 DETAIL D"
+  },
+  {
+   "feature": "超廣角鏡環外徑",
+   "model": 14.4,
+   "reference": 16.58,
+   "error": 2.18,
+   "source": "Apple p.2 DETAIL D"
+  },
+  {
+   "feature": "主鏡頭鏡頭中心",
+   "model": [
+    22.0,
+    45.5
+   ],
+   "reference": [
+    21.555,
+    41.395
+   ],
+   "error": 4.129,
+   "source": "Apple p.2 DETAIL D"
+  },
+  {
+   "feature": "主鏡頭鏡環外徑",
+   "model": 14.4,
+   "reference": 16.58,
+   "error": 2.18,
+   "source": "Apple p.2 DETAIL D"
+  },
+  {
+   "feature": "長焦鏡頭中心",
+   "model": [
+    2.5,
+    55.0
+   ],
+   "reference": [
+    3.435,
+    51.015
+   ],
+   "error": 4.093,
+   "source": "Apple p.2 DETAIL D"
+  },
+  {
+   "feature": "長焦鏡環外徑",
+   "model": 14.4,
+   "reference": 16.58,
+   "error": 2.18,
+   "source": "Apple p.2 DETAIL D"
+  },
+  {
+   "feature": "閃光燈中心",
+   "model": [
+    -24.5,
+    64.0
+   ],
+   "reference": [
+    -22.105,
+    61.185
+   ],
+   "error": 3.696,
+   "source": "Apple p.2 DETAIL D"
+  },
+  {
+   "feature": "閃光燈直徑",
+   "model": 6.0,
+   "reference": 6.9,
+   "error": 0.9,
+   "source": "Apple p.2 DETAIL D"
+  },
+  {
+   "feature": "LiDAR 視窗中心",
+   "model": [
+    -24.5,
+    45.5
+   ],
+   "reference": [
+    -22.105,
+    40.845
+   ],
+   "error": 5.235,
+   "source": "Apple p.2 DETAIL D"
+  },
+  {
+   "feature": "LiDAR 視窗直徑",
+   "model": 6.6,
+   "reference": 6.9,
+   "error": 0.3,
+   "source": "Apple p.2 DETAIL D"
+  },
+  {
+   "feature": "後置麥克風中心",
+   "model": [
+    -24.5,
+    55.5
+   ],
+   "reference": [
+    -22.105,
+    51.015
+   ],
+   "error": 5.084,
+   "source": "Apple p.2 DETAIL D"
+  },
+  {
+   "feature": "後置麥克風直徑",
+   "model": 1.1,
+   "reference": 1.15,
+   "error": 0.05,
+   "source": "Apple p.2 DETAIL D"
+  },
+  {
+   "feature": "鏡頭凸台高度",
+   "model": 1.625,
+   "reference": 2.78,
+   "error": 1.155,
+   "source": "Apple p.2 右視圖"
+  },
+  {
+   "feature": "鏡頭島輪廓",
+   "model": [
+    71.9,
+    37.5
+   ],
+   "reference": [
+    61.61,
+    37.73
+   ],
+   "error": 9.32,
+   "hausdorff": 11.15,
+   "source": "Apple p.2 線稿 (B)"
+  },
+  {
+   "feature": "鏡頭玻璃高出凸台",
+   "model": 1.3,
+   "reference": 2.11,
+   "error": 0.81,
+   "source": "Apple p.2 右視圖"
+  },
+  {
+   "feature": "背蓋玻璃輪廓",
+   "model": [
+    66.0,
+    109.5
+   ],
+   "reference": [
+    64.07,
+    97.26
+   ],
+   "error": 11.01,
+   "hausdorff": 11.36,
+   "source": "Apple p.2 線稿 (B)"
+  },
+  {
+   "feature": "螢幕玻璃輪廓",
+   "model": [
+    71.4,
+    149.5
+   ],
+   "reference": [
+    69.45,
+    147.61
+   ],
+   "error": 2.13,
+   "hausdorff": 2.28,
+   "source": "Apple p.2"
+  },
+  {
+   "feature": "顯示區寬",
+   "model": 68.9,
+   "reference": 66.57,
+   "error": 2.33,
+   "source": "Apple p.2"
+  },
+  {
+   "feature": "顯示區高",
+   "model": 147.0,
+   "reference": 144.73,
+   "error": 2.27,
+   "source": "Apple p.2"
+  },
+  {
+   "feature": "操作按鈕：中心 y",
+   "model": 43.5,
+   "reference": 40.725,
+   "error": 2.775,
+   "source": "Apple p.2"
+  },
+  {
+   "feature": "操作按鈕：長度",
+   "model": 9.0,
+   "reference": 6.9,
+   "error": 2.1,
+   "source": "Apple p.2"
+  },
+  {
+   "feature": "操作按鈕：寬度",
+   "model": 2.5,
+   "reference": 2.66,
+   "error": 0.16,
+   "source": "Apple p.2"
+  },
+  {
+   "feature": "操作按鈕：凸出量",
+   "model": 0.55,
+   "reference": 0.45,
+   "error": 0.1,
+   "source": "Apple p.2"
+  },
+  {
+   "feature": "音量＋：中心 y",
+   "model": 28.5,
+   "reference": 26.575,
+   "error": 1.925,
+   "source": "Apple p.2"
+  },
+  {
+   "feature": "音量＋：長度",
+   "model": 12.0,
+   "reference": 11.2,
+   "error": 0.8,
+   "source": "Apple p.2"
+  },
+  {
+   "feature": "音量＋：寬度",
+   "model": 2.5,
+   "reference": 2.66,
+   "error": 0.16,
+   "source": "Apple p.2"
+  },
+  {
+   "feature": "音量＋：凸出量",
+   "model": 0.55,
+   "reference": 0.45,
+   "error": 0.1,
+   "source": "Apple p.2"
+  },
+  {
+   "feature": "音量－：中心 y",
+   "model": 12.0,
+   "reference": 12.375,
+   "error": 0.375,
+   "source": "Apple p.2"
+  },
+  {
+   "feature": "音量－：長度",
+   "model": 12.0,
+   "reference": 11.2,
+   "error": 0.8,
+   "source": "Apple p.2"
+  },
+  {
+   "feature": "音量－：寬度",
+   "model": 2.5,
+   "reference": 2.66,
+   "error": 0.16,
+   "source": "Apple p.2"
+  },
+  {
+   "feature": "音量－：凸出量",
+   "model": 0.55,
+   "reference": 0.45,
+   "error": 0.1,
+   "source": "Apple p.2"
+  },
+  {
+   "feature": "SIM 卡托：中心 y",
+   "model": -34.875,
+   "reference": -36.965,
+   "error": 2.09,
+   "source": "Apple p.2"
+  },
+  {
+   "feature": "SIM 卡托：長度",
+   "model": 19.25,
+   "reference": 19.44,
+   "error": 0.19,
+   "source": "Apple p.2"
+  },
+  {
+   "feature": "SIM 卡托：寬度",
+   "model": 2.3,
+   "reference": 2.56,
+   "error": 0.26,
+   "source": "Apple p.2"
+  },
+  {
+   "feature": "SIM 卡托：凸出量",
+   "model": 0.05,
+   "reference": 0.0,
+   "error": 0.05,
+   "source": "Apple p.2"
+  },
+  {
+   "feature": "側邊按鈕：中心 y",
+   "model": 24.0,
+   "reference": 19.475,
+   "error": 4.525,
+   "source": "Apple p.2"
+  },
+  {
+   "feature": "側邊按鈕：長度",
+   "model": 18.0,
+   "reference": 17.7,
+   "error": 0.3,
+   "source": "Apple p.2"
+  },
+  {
+   "feature": "側邊按鈕：寬度",
+   "model": 2.5,
+   "reference": 2.66,
+   "error": 0.16,
+   "source": "Apple p.2"
+  },
+  {
+   "feature": "側邊按鈕：凸出量",
+   "model": 0.55,
+   "reference": 0.45,
+   "error": 0.1,
+   "source": "Apple p.2"
+  },
+  {
+   "feature": "相機控制：中心 y",
+   "model": -33.0,
+   "reference": -23.395,
+   "error": 9.605,
+   "source": "Apple p.2"
+  },
+  {
+   "feature": "相機控制：長度",
+   "model": 18.0,
+   "reference": 17.1,
+   "error": 0.9,
+   "source": "Apple p.2"
+  },
+  {
+   "feature": "相機控制：寬度",
+   "model": 3.0,
+   "reference": 3.03,
+   "error": 0.03,
+   "source": "Apple p.2"
+  },
+  {
+   "feature": "相機控制：凸出量",
+   "model": 0.12,
+   "reference": 0.0,
+   "error": 0.12,
+   "source": "Apple p.2"
+  },
+  {
+   "feature": "USB-C 開口寬",
+   "model": 9.0,
+   "reference": 9.0,
+   "error": 0.0,
+   "source": "Apple p.2 DETAIL C"
+  },
+  {
+   "feature": "USB-C 開口高",
+   "model": 2.7,
+   "reference": 3.14,
+   "error": 0.44,
+   "source": "Apple p.2 DETAIL C"
+  },
+  {
+   "feature": "底部 10 孔位置（最大偏差）",
+   "model": "12 孔",
+   "reference": "10 孔",
+   "error": 1.295,
+   "source": "Apple p.2"
+  },
+  {
+   "feature": "底部螺絲位置（最大偏差）",
+   "model": [
+    -6.6,
+    6.6
+   ],
+   "reference": [
+    -6.925,
+    6.925
+   ],
+   "error": 0.325,
+   "source": "Apple p.2"
+  }
+ ],
+ "internal": [
+  {
+   "part": "backGlass",
+   "verified": "xy",
+   "note": "",
+   "reference": "Apple 線稿 backGlass",
+   "uncertainty": 0.05,
+   "contour_p95": 11.01,
+   "mean": 3.05,
+   "hausdorff": 11.36,
+   "centroid_offset": 5.02,
+   "bbox_edge_max": 11.36,
+   "model_size": [
+    66.0,
+    109.5
+   ],
+   "ref_size": [
+    64.07,
+    97.26
+   ],
+   "with_uncertainty": 11.06,
+   "gate": 0.5,
+   "pass": false,
+   "edge_fit": {
+    "weki-0301": 0.53
+   }
+  },
+  {
+   "part": "vc",
+   "verified": "xy",
+   "note": "",
+   "reference": "WekiHome @ 05:28",
+   "uncertainty": 0.5,
+   "contour_p95": 10.27,
+   "mean": 2.28,
+   "hausdorff": 16.0,
+   "centroid_offset": 3.21,
+   "bbox_edge_max": 3.5,
+   "model_size": [
+    66.2,
+    124.0
+   ],
+   "ref_size": [
+    65.6,
+    125.5
+   ],
+   "with_uncertainty": 10.77,
+   "gate": 1.0,
+   "pass": false,
+   "edge_fit": {
+    "weki-0528": 0.82,
+    "ifixit-photo-Battery": null
+   }
+  },
+  {
+   "part": "shields",
+   "verified": "xy",
+   "note": "",
+   "reference": "WekiHome @ 05:28",
+   "uncertainty": 0.5,
+   "contour_p95": 32.0,
+   "mean": 10.16,
+   "hausdorff": 32.16,
+   "centroid_offset": 22.94,
+   "bbox_edge_max": 32.0,
+   "model_size": [
+    25.0,
+    10.5
+   ],
+   "ref_size": [
+    55.6,
+    9.8
+   ],
+   "with_uncertainty": 32.5,
+   "gate": 1.0,
+   "pass": false,
+   "edge_fit": {
+    "weki-0528": 0.39
+   }
+  },
+  {
+   "part": "battery",
+   "verified": "xy",
+   "note": "",
+   "reference": "WekiHome https://youtu.be/BLKegH19KGI @ 10:19",
+   "uncertainty": 0.4,
+   "contour_p95": 5.88,
+   "mean": 1.36,
+   "hausdorff": 11.52,
+   "centroid_offset": 1.83,
+   "bbox_edge_max": 2.5,
+   "model_size": [
+    59.0,
+    70.7
+   ],
+   "ref_size": [
+    59.7,
+    70.2
+   ],
+   "with_uncertainty": 6.28,
+   "gate": 1.0,
+   "pass": false,
+   "edge_fit": {
+    "weki-1019": 0.74
+   }
+  },
+  {
+   "part": "faceId",
+   "verified": "xy",
+   "note": "",
+   "reference": "WekiHome https://youtu.be/BLKegH19KGI @ 10:19",
+   "uncertainty": 0.4,
+   "contour_p95": 24.77,
+   "mean": 3.76,
+   "hausdorff": 26.87,
+   "centroid_offset": 5.35,
+   "bbox_edge_max": 26.3,
+   "model_size": [
+    40.5,
+    34.5
+   ],
+   "ref_size": [
+    40.7,
+    8.6
+   ],
+   "with_uncertainty": 25.17,
+   "gate": 1.0,
+   "pass": false,
+   "edge_fit": {
+    "weki-1019": 0.84,
+    "weki-0528": 0.63,
+    "ifixit-photo-NoBattery": 0.91
+   }
+  },
+  {
+   "part": "rearCamera",
+   "verified": "xy",
+   "note": "",
+   "reference": "WekiHome https://youtu.be/BLKegH19KGI @ 10:19",
+   "uncertainty": 0.4,
+   "contour_p95": 9.3,
+   "mean": 3.22,
+   "hausdorff": 10.2,
+   "centroid_offset": 5.94,
+   "bbox_edge_max": 9.3,
+   "model_size": [
+    35.5,
+    34.4
+   ],
+   "ref_size": [
+    46.5,
+    38.8
+   ],
+   "with_uncertainty": 9.7,
+   "gate": 1.0,
+   "pass": false,
+   "edge_fit": {
+    "weki-1019": 0.51,
+    "ifixit-photo-NoBattery": 0.63
+   }
+  },
+  {
+   "part": "topSpeaker",
+   "verified": "xy",
+   "note": "畫面中被黑色排線蓋住，邊緣不清楚",
+   "reference": "WekiHome https://youtu.be/BLKegH19KGI @ 10:19",
+   "uncertainty": 0.7,
+   "contour_p95": 44.47,
+   "mean": 34.49,
+   "hausdorff": 45.58,
+   "centroid_offset": 45.05,
+   "bbox_edge_max": 43.0,
+   "model_size": [
+    18.5,
+    17.7
+   ],
+   "ref_size": [
+    17.8,
+    28.3
+   ],
+   "with_uncertainty": 45.17,
+   "gate": 1.0,
+   "pass": false,
+   "edge_fit": {
+    "weki-1019": 0.72
+   }
+  },
+  {
+   "part": "apBoard",
+   "verified": "xy",
+   "note": "",
+   "reference": "WekiHome https://youtu.be/BLKegH19KGI @ 10:19",
+   "uncertainty": 0.5,
+   "contour_p95": 3.0,
+   "mean": 1.08,
+   "hausdorff": 3.0,
+   "centroid_offset": 1.56,
+   "bbox_edge_max": 1.2,
+   "model_size": [
+    60.5,
+    23.3
+   ],
+   "ref_size": [
+    60.5,
+    24.9
+   ],
+   "with_uncertainty": 3.5,
+   "gate": 1.0,
+   "pass": false,
+   "edge_fit": {
+    "weki-1019": 0.8,
+    "ifixit-photo-NoBattery": 0.64
+   }
+  },
+  {
+   "part": "soc",
+   "verified": "xy",
+   "note": "",
+   "reference": "WekiHome https://youtu.be/BLKegH19KGI @ 10:19",
+   "uncertainty": 0.3,
+   "contour_p95": 0.7,
+   "mean": 0.44,
+   "hausdorff": 0.86,
+   "centroid_offset": 0.45,
+   "bbox_edge_max": 0.7,
+   "model_size": [
+    15.7,
+    15.8
+   ],
+   "ref_size": [
+    15.1,
+    16.8
+   ],
+   "with_uncertainty": 1.0,
+   "gate": 1.0,
+   "pass": true,
+   "edge_fit": {
+    "weki-1019": 0.93,
+    "ifixit-photo-NoBattery": 0.96
+   },
+   "cross_check": {
+    "soc.ifixit": {
+     "contour_p95": 0.88,
+     "centroid_offset": 0.44,
+     "source": "iFixit NoBattery wallpaper (eSIM unit)"
+    }
+   }
+  },
+  {
+   "part": "rfBoard",
+   "verified": "none",
+   "note": "",
+   "status": "no reference",
+   "reason": "被處理器層主板蓋住，沒有可對位的俯拍；外形假設與上層相同"
+  },
+  {
+   "part": "modem",
+   "verified": "none",
+   "note": "",
+   "status": "no reference",
+   "reason": "夾在兩層主板之間，只有透視桌面照"
+  },
+  {
+   "part": "n1",
+   "verified": "none",
+   "note": "",
+   "status": "no reference",
+   "reason": "同上"
+  },
+  {
+   "part": "nand",
+   "verified": "none",
+   "note": "",
+   "status": "no reference",
+   "reason": "同上"
+  },
+  {
+   "part": "simReader",
+   "verified": "xy",
+   "note": "",
+   "reference": "WekiHome https://youtu.be/BLKegH19KGI @ 10:19",
+   "uncertainty": 0.4,
+   "contour_p95": 2.5,
+   "mean": 1.0,
+   "hausdorff": 2.71,
+   "centroid_offset": 2.05,
+   "bbox_edge_max": 2.5,
+   "model_size": [
+    14.0,
+    20.25
+   ],
+   "ref_size": [
+    14.6,
+    21.2
+   ],
+   "with_uncertainty": 2.9,
+   "gate": 1.0,
+   "pass": false,
+   "edge_fit": {
+    "weki-1019": 0.79
+   }
+  },
+  {
+   "part": "bottomSpeaker",
+   "verified": "xy",
+   "note": "",
+   "reference": "WekiHome https://youtu.be/BLKegH19KGI @ 10:19",
+   "uncertainty": 0.5,
+   "contour_p95": 13.6,
+   "mean": 2.66,
+   "hausdorff": 13.6,
+   "centroid_offset": 3.26,
+   "bbox_edge_max": 13.6,
+   "model_size": [
+    22.0,
+    25.5
+   ],
+   "ref_size": [
+    34.9,
+    23.5
+   ],
+   "with_uncertainty": 14.1,
+   "gate": 1.0,
+   "pass": false,
+   "edge_fit": {
+    "weki-1019": 0.71,
+    "weki-0528": 0.78
+   }
+  },
+  {
+   "part": "taptic",
+   "verified": "xy",
+   "note": "",
+   "reference": "WekiHome https://youtu.be/BLKegH19KGI @ 10:19",
+   "uncertainty": 0.3,
+   "contour_p95": 4.1,
+   "mean": 1.49,
+   "hausdorff": 4.1,
+   "centroid_offset": 1.06,
+   "bbox_edge_max": 4.1,
+   "model_size": [
+    27.0,
+    10.5
+   ],
+   "ref_size": [
+    19.5,
+    9.1
+   ],
+   "with_uncertainty": 4.4,
+   "gate": 1.0,
+   "pass": false,
+   "edge_fit": {
+    "weki-1019": 0.86,
+    "weki-0528": 0.67,
+    "ifixit-photo-NoBattery": 0.66
+   },
+   "cross_check": {
+    "taptic.ifixit": {
+     "contour_p95": 4.57,
+     "centroid_offset": 1.49,
+     "source": "iFixit NoBattery wallpaper (eSIM unit)"
+    }
+   }
+  },
+  {
+   "part": "micModule",
+   "verified": "xy",
+   "note": "部分被支架擋住",
+   "reference": "WekiHome https://youtu.be/BLKegH19KGI @ 10:19",
+   "uncertainty": 0.6,
+   "contour_p95": 2.0,
+   "mean": 0.93,
+   "hausdorff": 2.0,
+   "centroid_offset": 1.65,
+   "bbox_edge_max": 2.0,
+   "model_size": [
+    13.5,
+    6.8
+   ],
+   "ref_size": [
+    13.3,
+    4.6
+   ],
+   "with_uncertainty": 2.6,
+   "gate": 1.0,
+   "pass": false,
+   "edge_fit": {
+    "weki-1019": 0.52
+   }
+  },
+  {
+   "part": "usbFlex",
+   "verified": "xy",
+   "note": "只驗 USB-C 母座；排線走向被遮住，未驗證",
+   "reference": "WekiHome https://youtu.be/BLKegH19KGI @ 10:19",
+   "uncertainty": 0.6,
+   "contour_p95": 78.3,
+   "mean": 17.5,
+   "hausdorff": 83.64,
+   "centroid_offset": 28.95,
+   "bbox_edge_max": 79.3,
+   "model_size": [
+    39.5,
+    88.5
+   ],
+   "ref_size": [
+    10.8,
+    8.6
+   ],
+   "with_uncertainty": 78.9,
+   "gate": 1.0,
+   "pass": false,
+   "edge_fit": {
+    "weki-1019": 0.82
+   }
+  },
+  {
+   "part": "lidar",
+   "verified": "xy",
+   "note": "",
+   "reference": "iFixit / Lumafield CT_01",
+   "uncertainty": 0.5,
+   "contour_p95": 5.31,
+   "mean": 2.79,
+   "hausdorff": 5.94,
+   "centroid_offset": 4.41,
+   "bbox_edge_max": 4.8,
+   "model_size": [
+    15.5,
+    10.5
+   ],
+   "ref_size": [
+    6.9,
+    9.4
+   ],
+   "with_uncertainty": 5.81,
+   "gate": 1.0,
+   "pass": false,
+   "edge_fit": {
+    "ifixit-ct01": 0.62
+   }
+  },
+  {
+   "part": "topAntenna",
+   "verified": "none",
+   "note": "",
+   "status": "no reference",
+   "reason": "模組外形在所有俯拍裡都被頂部揚聲器擋住；只有閃光燈中心有官方值"
+  }
+ ]
+}

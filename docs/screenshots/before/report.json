@@ -1,0 +1,17 @@
+{
+ "url": "http://localhost:4173",
+ "loadMs": 1884,
+ "throttle": 1,
+ "perf": {
+  "frames": 175,
+  "medianMs": 83.29999999999927,
+  "p95Ms": 100.09999999999854,
+  "drawCalls": 193,
+  "triangles": 35348,
+  "geometries": 182,
+  "textures": 13
+ },
+ "resources": [],
+ "errors": [],
+ "note": "software WebGL (SwiftShader): frame times are a lower bound on speed, not a phone measurement"
+}

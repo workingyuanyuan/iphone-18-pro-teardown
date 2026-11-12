@@ -1,0 +1,15 @@
+{
+  "name": "ifixit-ct07",
+  "image": "../../../../../refs/ifixit/iPhone_18_Pro_CT_07.png",
+  "source": "iFixit / Lumafield CT render 07 (same volume and framing as CT_01; transform copied from the CT_01 fit)",
+  "mode": "points",
+  "model": "scale_translate",
+  "view": "front",
+  "px_per_mm": 20,
+  "points": [
+    { "name": "lensUltraWide", "px": [994.65, 214.93], "mm": [21.56, 60.64] },
+    { "name": "lensMain", "px": [989.42, 566.85], "mm": [21.56, 41.4] },
+    { "name": "lensTele", "px": [663.76, 391.72], "mm": [3.435, 51.02] },
+    { "name": "flash", "px": [203, 206], "mm": [-22.109, 61.194] }
+  ]
+}

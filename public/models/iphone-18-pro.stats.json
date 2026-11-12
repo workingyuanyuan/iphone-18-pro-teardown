@@ -1,0 +1,99 @@
+{
+ "model": "iphone-18-pro",
+ "triangles": 46923,
+ "meshes": 56,
+ "parts": {
+  "frame": {
+   "triangles": 23008,
+   "meshes": 3
+  },
+  "simTray": {
+   "triangles": 304,
+   "meshes": 2
+  },
+  "backGlass": {
+   "triangles": 3076,
+   "meshes": 6
+  },
+  "display": {
+   "triangles": 3958,
+   "meshes": 4
+  },
+  "shields": {
+   "triangles": 552,
+   "meshes": 1
+  },
+  "vc": {
+   "triangles": 1772,
+   "meshes": 2
+  },
+  "battery": {
+   "triangles": 420,
+   "meshes": 2
+  },
+  "faceId": {
+   "triangles": 1294,
+   "meshes": 4
+  },
+  "rearCamera": {
+   "triangles": 3106,
+   "meshes": 3
+  },
+  "topSpeaker": {
+   "triangles": 516,
+   "meshes": 2
+  },
+  "apBoard": {
+   "triangles": 4584,
+   "meshes": 3
+  },
+  "soc": {
+   "triangles": 220,
+   "meshes": 4
+  },
+  "rfBoard": {
+   "triangles": 1616,
+   "meshes": 3
+  },
+  "modem": {
+   "triangles": 12,
+   "meshes": 1
+  },
+  "n1": {
+   "triangles": 12,
+   "meshes": 1
+  },
+  "nand": {
+   "triangles": 12,
+   "meshes": 1
+  },
+  "simReader": {
+   "triangles": 384,
+   "meshes": 2
+  },
+  "bottomSpeaker": {
+   "triangles": 565,
+   "meshes": 2
+  },
+  "taptic": {
+   "triangles": 212,
+   "meshes": 2
+  },
+  "micModule": {
+   "triangles": 292,
+   "meshes": 2
+  },
+  "usbFlex": {
+   "triangles": 340,
+   "meshes": 2
+  },
+  "topAntenna": {
+   "triangles": 364,
+   "meshes": 2
+  },
+  "lidar": {
+   "triangles": 304,
+   "meshes": 2
+  }
+ }
+}

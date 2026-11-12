@@ -1,0 +1,103 @@
+{
+  "name": "ifixit-ct01",
+  "image": "../../../../../refs/ifixit/iPhone_18_Pro_CT_01.png",
+  "mode": "points",
+  "model": "scale_translate",
+  "view": "front",
+  "px_per_mm": 20,
+  "points": [
+    {
+      "name": "lensUltraWide",
+      "px": [
+        993,
+        213
+      ],
+      "mm": [
+        21.56,
+        60.64
+      ],
+      "refine": {
+        "type": "circle",
+        "r_px": [
+          95,
+          150
+        ],
+        "search_px": 30
+      }
+    },
+    {
+      "name": "lensMain",
+      "px": [
+        993,
+        561
+      ],
+      "mm": [
+        21.56,
+        41.4
+      ],
+      "refine": {
+        "type": "circle",
+        "r_px": [
+          95,
+          150
+        ],
+        "search_px": 30
+      }
+    },
+    {
+      "name": "lensTele",
+      "px": [
+        663,
+        390
+      ],
+      "mm": [
+        3.435,
+        51.02
+      ],
+      "refine": {
+        "type": "circle",
+        "r_px": [
+          95,
+          150
+        ],
+        "search_px": 30
+      }
+    },
+    {
+      "name": "flash",
+      "px": [
+        203,
+        206
+      ],
+      "mm": [
+        -22.109,
+        61.194
+      ]
+    },
+    {
+      "name": "rearSensor",
+      "px": [
+        203,
+        574
+      ],
+      "mm": [
+        -22.109,
+        40.852
+      ],
+      "use": false
+    }
+  ],
+  "check_points": [
+    {
+      "name": "usbC centre x (y not dimensioned in front view)",
+      "px": [
+        607,
+        2560
+      ],
+      "mm": [
+        0,
+        -69
+      ]
+    }
+  ]
+}

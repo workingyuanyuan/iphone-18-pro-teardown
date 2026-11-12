@@ -1,0 +1,23 @@
+{
+  "views": [
+    {
+      "name": "front", "page": 2, "clip_pt": [334, 212, 488, 529], "body_mm": [71.85, 150.01], "mirror_x": false,
+      "faces": [
+        { "id": "silhouetteFront", "seed_mm": "union" },
+        { "id": "dynamicIsland", "seed_mm": [0, 67] }
+      ]
+    },
+    {
+      "name": "back", "page": 2, "clip_pt": [763, 212, 917, 529], "body_mm": [71.85, 150.01], "mirror_x": true,
+      "faces": [
+        { "id": "silhouetteBack", "seed_mm": "union" },
+        { "id": "backGlass", "seed_mm": [-20, -30] },
+        { "id": "cameraIsland", "seed_mm": [-10, 62] },
+        { "id": "plateauBandTop", "seed_mm": [0, 73.2] },
+        { "id": "plateauBandLeft", "seed_mm": [-34.5, 50] },
+        { "id": "plateauBandBottom", "seed_mm": [0, 28] },
+        { "id": "appleLogo", "seed_mm": [-1, -20] }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+node_modules
+dist
+refs/
+tools/blender/.vendor/
+__pycache__/
+public/models/*.raw.glb

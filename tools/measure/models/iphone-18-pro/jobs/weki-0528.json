@@ -1,0 +1,20 @@
+{
+  "name": "weki-0528",
+  "image": "../../../../../refs/video/frames/weki_0528.png",
+  "source": "WekiHome https://youtu.be/BLKegH19KGI @ 05:28 (physical-SIM unit, display removed, vapor chamber in place)",
+  "mode": "frame",
+  "view": "front",
+  "segment": "chroma",
+  "body_mm": [
+    71.85,
+    150.01
+  ],
+  "roi_px": [
+    1960,
+    260,
+    2800,
+    1780
+  ],
+  "px_per_mm": 20,
+  "margin_mm": 1
+}

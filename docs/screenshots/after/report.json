@@ -1,0 +1,25 @@
+{
+ "url": "http://localhost:4173",
+ "loadMs": 2332,
+ "throttle": 4,
+ "perf": {
+  "frames": 177,
+  "medianMs": 33.30000000000291,
+  "p95Ms": 33.40000000000873,
+  "drawCalls": 28,
+  "triangles": 31799,
+  "geometries": 52,
+  "textures": 11,
+  "cameraMoved": true
+ },
+ "resources": [
+  {
+   "name": "iphone-18-pro.glb",
+   "transfer": 414092,
+   "decoded": 413792
+  }
+ ],
+ "errors": [],
+ "retryAfterFailedLoad": true,
+ "note": "software WebGL (SwiftShader): frame times are a lower bound on speed, not a phone measurement"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "weki-0301",
+  "image": "../../../../../refs/video/frames/weki_0301.png",
+  "source": "WekiHome https://youtu.be/BLKegH19KGI @ 03:01 (physical-SIM unit, back view, back glass removed)",
+  "mode": "frame", "view": "back", "segment": "chroma",
+  "body_mm": [71.85, 150.01],
+  "roi_px": [2040, 300, 2800, 1800],
+  "px_per_mm": 20, "margin_mm": 1
+}

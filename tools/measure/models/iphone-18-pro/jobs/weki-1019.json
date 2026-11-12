@@ -1,0 +1,20 @@
+{
+  "name": "weki-1019",
+  "image": "../../../../../refs/video/frames/weki_1019.png",
+  "source": "WekiHome https://youtu.be/BLKegH19KGI @ 10:19 (physical-SIM unit, battery in place, vapor chamber removed)",
+  "mode": "frame",
+  "view": "front",
+  "body_mm": [
+    71.85,
+    150.01
+  ],
+  "roi_px": [
+    1960,
+    230,
+    2820,
+    1850
+  ],
+  "px_per_mm": 20,
+  "margin_mm": 1,
+  "segment": "chroma"
+}
