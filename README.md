@@ -1,6 +1,6 @@
-# 拆機實驗室（Phone Teardown Lab）
+# iPhone 18 Pro 拆解
 
-用 3D 互動方式一層層拆開手機，讓一般人看懂手機裡的每個零件。初版收錄 **iPhone 18 Pro**，內容依據微機分 WekiHome 的拆解影片（<https://youtu.be/BLKegH19KGI>，2026-09-20）。
+用 3D 互動方式一層層拆開 **iPhone 18 Pro**，讓一般人看懂這支手機裡的每個零件。本站只專注這一款機型，內容依據微機分 WekiHome 的拆解影片（<https://youtu.be/BLKegH19KGI>，2026-09-20）。
 
 ## 開發
 
@@ -19,7 +19,8 @@ npm run build      # 型別檢查 + 打包到 dist/（純靜態網站，可放�
 - **鏡頭**：自由環繞，加上 45°、正面、背面、側面四個預設視角；零件特寫會淡化其他零件、隱藏擋住它的零件；另有 X 光（外殼半透明）和爆炸圖滑桿。
 - **零件卡**：白話說明、規格、拆解發現。每條資訊都附影片時間戳，點了直接跳到影片該處。
 - **彩蛋**：MagSafe 線圈範圍、Face ID 紅外光點、撕開均熱板貼紙、掀開 A20 Pro 頂蓋看 WMCM 封裝。
-- 手機版改成底部分頁面板（零件／介紹／零件盤）。另支援鍵盤操作：Esc 離開、Delete 拆下、Ctrl+Z 復原、N 下一步。
+- **零件墊**：18 個可拆零件照拆解順序編號，一格一個；拆下來的那格會填滿，所以它同時是零件清單、零件盤和進度。沒選零件時，右側是總覽（玩法、三個看點、尺寸與來源）。
+- 手機版改成底部分頁面板（零件墊／介紹）。另支援鍵盤操作：Esc 離開、Delete 拆下、Ctrl+Z 復原、N 下一步。
 
 ## 架構
 
@@ -33,18 +34,9 @@ src/
     viewer.ts    每個零件的位置／透明度／高亮／彩蛋，皆由狀態推導
     tween.ts     動畫
   builders/    共用的程序化幾何、材質與 canvas 貼圖
-  data/phones/ 每支手機一個資料模組（零件清單＋幾何建構）
+  data/phones/iphone-18-pro/  零件清單、導覽順序與模型載入
   ui/          DOM 介面與控制器
 ```
-
-### 新增一支手機
-
-1. 在 `src/data/phones/<model>/` 建立：
-   - `parts.ts`：零件清單（`blockedBy` 遮擋關係、`removeDir`、`explode`、說明與時間戳）以及 `guideOrder`。
-   - `build.ts`：用 `src/builders` 建出每個零件 id 對應的 `Object3D`（單位 mm，+z 為螢幕側）。
-   - `index.ts`：匯出 `PhoneModel`。
-2. 加進 `src/data/phones/index.ts` 的 `phones` 陣列。
-3. 在 `tests/assembly.test.ts` 加一段 `validateParts` 檢查。它會抓出未知 id、循環遮擋，以及導覽順序中不合法的步驟。
 
 ## 資料準確度
 

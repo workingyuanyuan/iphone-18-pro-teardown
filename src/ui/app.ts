@@ -41,10 +41,12 @@ export class App {
   private history: Step[][] = [];
   private removalOrder: string[] = [];
   private selected: string | null = null;
+  /** What the info panel last showed, so it scrolls back to the top only when the subject changes. */
+  private infoShown: string | null | undefined;
   private returnPose: Pose | null = null;
   private guideCaption = '';
   private touchedAnything = false;
-  private mobileTab: 'parts' | 'info' | 'tray' | null = null;
+  private mobileTab: 'parts' | 'info' | null = null;
   private reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   private el!: {
@@ -52,8 +54,6 @@ export class App {
     stageHost: HTMLElement;
     list: HTMLElement;
     info: HTMLElement;
-    tray: HTMLElement;
-    trayItems: HTMLElement;
     progress: HTMLElement;
     caption: HTMLElement;
     tooltip: HTMLElement;
@@ -64,7 +64,8 @@ export class App {
     xray: HTMLButtonElement;
     explode: HTMLInputElement;
     tabs: HTMLElement;
-    onboarding: HTMLElement;
+    toolbar: HTMLElement;
+    mat: HTMLElement;
   };
 
   constructor(
@@ -92,24 +93,23 @@ export class App {
     const root = h('div', 'app');
     root.innerHTML = `
       <header class="topbar">
-        <div class="brand"><span class="brand-mark">${icon.sparkle}</span><span>拆機實驗室</span></div>
-        <div class="model-pill" title="目前機型">${esc(this.model.name)}</div>
-        <div class="progress" aria-live="polite"></div>
+        <h1 class="title">${esc(this.model.name)} 拆解</h1>
         <div class="topbar-actions">
           <a class="src-link" href="${this.model.source.url}" target="_blank" rel="noopener">資料來源：微機分 WekiHome 拆解影片</a>
-          <button class="icon-btn help-btn" aria-label="操作說明">${icon.help}</button>
+          <button class="help-btn">怎麼拆</button>
         </div>
       </header>
       <div class="stage-host"></div>
-      <aside class="panel parts-panel" data-pane="parts" aria-label="零件清單">
-        <div class="panel-head"><h2>零件清單</h2><span class="legend"><i class="dot ok"></i>可拆 <i class="dot lock"></i>被擋住 <i class="dot gone"></i>已拆</span></div>
-        <div class="part-list" role="list"></div>
+      <aside class="mat" data-pane="parts" aria-label="零件墊">
+        <div class="mat-head">
+          <h2>零件墊</h2>
+          <span class="progress" aria-live="polite"></span>
+          <button class="mat-reset reset">全部組回</button>
+        </div>
+        <div class="mat-grid" role="list"></div>
+        <div class="mat-foot"></div>
       </aside>
-      <aside class="panel info-panel" data-pane="info" aria-label="零件介紹"></aside>
-      <section class="tray" data-pane="tray" aria-label="零件盤">
-        <div class="tray-head"><h2>零件盤</h2><span class="tray-hint">拆下的零件會放在這裡，點一下就能拿起來看</span><button class="act tray-reset">${icon.reset}全部組回</button></div>
-        <div class="tray-items"></div>
-      </section>
+      <aside class="info-panel" data-pane="info" aria-label="零件介紹"></aside>
       <div class="guide-caption" role="status"></div>
       <nav class="toolbar" aria-label="工具列">
         <div class="tool-group views" role="group" aria-label="視角">
@@ -121,38 +121,23 @@ export class App {
           <input type="range" min="0" max="1" step="0.01" value="0" aria-label="爆炸圖程度" />
         </label>
         <button class="tool xray" aria-pressed="false" title="X 光：外殼變透明">${icon.xray}<span>X 光</span></button>
-        <div class="tool-group">
-          <button class="tool undo" title="復原上一步">${icon.undo}<span>復原</span></button>
-          <button class="tool reset" title="全部組回">${icon.reset}<span>全部組回</span></button>
-        </div>
-        <button class="tool primary next" title="照影片順序拆下一個零件">${icon.next}<span>下一步</span></button>
+        <button class="tool undo" title="復原上一步">${icon.undo}<span>復原</span></button>
+        <button class="tool primary next" title="照影片順序拆下一個零件"><span>下一步</span></button>
       </nav>
       <nav class="tabs" aria-label="面板">
-        <button data-tab="parts">零件</button><button data-tab="info">介紹</button><button data-tab="tray">零件盤 <b class="tray-count"></b></button>
+        <button data-tab="parts">零件墊 <b class="mat-count"></b></button><button data-tab="info">介紹</button>
       </nav>
       <div class="tooltip" role="tooltip"></div>
-      <div class="toast" role="status"></div>
-      <div class="onboarding" role="dialog" aria-modal="false" aria-labelledby="ob-title">
-        <div class="ob-card">
-          <h2 id="ob-title">把 ${esc(this.model.name)} 拆開來看看</h2>
-          <ol>
-            <li><b>拖曳</b>旋轉、<b>滾輪 / 雙指</b>縮放，看看手機的每一面。</li>
-            <li><b>點一下零件</b>看它是什麼；發出<span class="c-ok">青綠色光</span>的就是現在拆得下來的。</li>
-            <li>按卡片上的 <b>「拆下」</b>，一層一層往裡面探索；被擋住的零件會告訴你要先拆哪個。</li>
-            <li>不想自己找？按右下角 <b>「下一步」</b>，照拆解影片的順序帶你走一遍。</li>
-          </ol>
-          <button class="primary ob-go">開始探索</button>
-        </div>
-      </div>`;
+      <div class="toast" role="status"></div>`;
     this.host.appendChild(root);
     const q = <T extends Element>(s: string) => root.querySelector(s) as T;
     this.el = {
       root,
       stageHost: q('.stage-host'),
-      list: q('.part-list'),
+      list: q('.mat-grid'),
       info: q('.info-panel'),
-      tray: q('.tray'),
-      trayItems: q('.tray-items'),
+      mat: q('.mat'),
+      toolbar: q('.toolbar'),
       progress: q('.progress'),
       caption: q('.guide-caption'),
       tooltip: q('.tooltip'),
@@ -163,7 +148,6 @@ export class App {
       xray: q('.xray'),
       explode: q('.slider input'),
       tabs: q('.tabs'),
-      onboarding: q('.onboarding'),
     };
 
     root.querySelectorAll<HTMLButtonElement>('[data-view]').forEach((b) =>
@@ -190,37 +174,23 @@ export class App {
       this.flyView(VIEWS[viewIdx].id);
       this.toast(`視角：${VIEWS[viewIdx].label}`, 1200);
     });
-    q<HTMLButtonElement>('.tray-reset').addEventListener('click', () => this.installAll());
     this.el.reset.addEventListener('click', () => this.installAll());
     this.el.next.addEventListener('click', () => this.guidedNext());
     this.el.tabs.querySelectorAll<HTMLButtonElement>('[data-tab]').forEach((b) =>
-      b.addEventListener('click', () => this.setTab(b.dataset.tab as 'parts' | 'info' | 'tray')),
+      b.addEventListener('click', () => this.setTab(b.dataset.tab as 'parts' | 'info')),
     );
-    q<HTMLButtonElement>('.ob-go').addEventListener('click', () => this.closeOnboarding());
-    q<HTMLButtonElement>('.help-btn').addEventListener('click', () => this.el.onboarding.classList.add('show'));
-    let seen = false;
-    try {
-      seen = localStorage.getItem('teardown.onboarded') === '1';
-    } catch {
-      /* storage unavailable */
-    }
-    if (!seen) this.el.onboarding.classList.add('show');
-  }
-
-  private closeOnboarding(): void {
-    this.el.onboarding.classList.remove('show');
-    try {
-      localStorage.setItem('teardown.onboarded', '1');
-    } catch {
-      /* storage unavailable */
-    }
+    // The overview sheet (shown when nothing is selected) carries the instructions.
+    q<HTMLButtonElement>('.help-btn').addEventListener('click', () => {
+      this.select(null);
+      if (this.isMobile() && this.mobileTab !== 'info') this.setTab('info');
+    });
   }
 
   private isMobile(): boolean {
     return this.el.root.clientWidth < 960;
   }
 
-  private setTab(tab: 'parts' | 'info' | 'tray' | null): void {
+  private setTab(tab: 'parts' | 'info' | null): void {
     this.mobileTab = this.mobileTab === tab ? null : tab;
     this.renderTabs();
   }
@@ -235,18 +205,16 @@ export class App {
 
   private updateInsets(): void {
     const r = this.el.root.getBoundingClientRect();
+    const tb = this.el.toolbar.getBoundingClientRect();
     if (this.isMobile()) {
       const sheet = this.mobileTab ? (this.el.root.querySelector(`[data-pane="${this.mobileTab}"]`) as HTMLElement) : null;
-      const tb = (this.el.root.querySelector('.toolbar') as HTMLElement).getBoundingClientRect();
       const bottom = sheet ? r.bottom - sheet.getBoundingClientRect().top : r.bottom - tb.top;
       this.stage?.setInsets(0, 0, Math.max(0, bottom - 40));
     } else {
-      const left = (this.el.root.querySelector('.parts-panel') as HTMLElement).getBoundingClientRect().right - r.left;
-      const info = this.el.info.getBoundingClientRect();
-      const right = this.el.info.classList.contains('open') ? r.right - info.left : 0;
-      const tray = this.el.tray.getBoundingClientRect();
-      const bottom = r.bottom - Math.min(tray.top, (this.el.root.querySelector('.toolbar') as HTMLElement).getBoundingClientRect().top);
-      this.stage?.setInsets(left, right, bottom * 0.6);
+      // Both side panels are always on screen; the guided caption sits just above the toolbar.
+      const left = this.el.mat.getBoundingClientRect().right - r.left;
+      const right = r.right - this.el.info.getBoundingClientRect().left;
+      this.stage?.setInsets(left, right, r.bottom - tb.top + 36);
     }
   }
 
@@ -266,7 +234,7 @@ export class App {
       if (d.parent) return { kind: 'fixed', text: this.assembly.isInstalled(id) ? `焊在${this.def(d.parent).name}上` : `跟著${this.def(d.parent).name}一起拆下了` };
       return { kind: 'fixed', text: '手機骨架，所有零件都裝在它上面' };
     }
-    if (!this.assembly.isInstalled(id)) return { kind: 'gone', text: '已拆下，放在零件盤' };
+    if (!this.assembly.isInstalled(id)) return { kind: 'gone', text: '已拆下，放在零件墊' };
     const blockers = this.assembly.blockersOf(id);
     if (blockers.length) return { kind: 'lock', text: `被${this.names(blockers)}擋住` };
     return { kind: 'ok', text: '現在可以拆下' };
@@ -275,51 +243,91 @@ export class App {
   // ---------------------------------------------------------------- rendering
 
   private renderAll(): void {
-    this.renderList();
+    this.renderMat();
     this.renderInfo();
-    this.renderTray();
     this.renderToolbar();
     this.renderTabs();
   }
 
-  private renderList(): void {
-    const order = [...this.model.guideOrder];
-    const top = ['frame', ...order];
-    const html = top
-      .map((id) => {
-        const rows = [id, ...this.model.parts.filter((p) => p.parent === id).map((p) => p.id)];
-        return rows
-          .map((rid) => {
-            const d = this.def(rid);
-            const st = this.status(rid);
-            const child = d.parent ? ' child' : '';
-            const sel = this.selected === rid ? ' selected' : '';
-            const mark = st.kind === 'ok' ? icon.out : st.kind === 'lock' ? icon.lock : st.kind === 'gone' ? icon.check : '';
-            return `<button class="part-row ${st.kind}${child}${sel}" data-id="${rid}" role="listitem" aria-label="${esc(d.name)}：${esc(st.text)}">
-              <span class="cat">${categoryIcon[d.category]}</span>
-              <span class="pname">${esc(d.name)}<small>${esc(st.text)}</small></span>
-              <span class="mark">${mark}</span></button>`;
-          })
-          .join('');
-      })
-      .join('');
-    this.el.list.innerHTML = html;
-    this.el.list.querySelectorAll<HTMLButtonElement>('.part-row').forEach((b) =>
+  /** Teardown position (1-based, video order) of a removable part. */
+  private stepOf(id: string): number {
+    return this.model.guideOrder.indexOf(id) + 1;
+  }
+
+  /**
+   * The parts mat: one numbered cell per removable part, in teardown order. A cell fills in when its
+   * part comes off, so the mat is the parts list, the removed-parts tray and the progress display.
+   */
+  private renderMat(): void {
+    const cell = (id: string) => {
+      const d = this.def(id);
+      const st = this.status(id);
+      const sel = this.selected === id ? ' selected' : '';
+      const mark = st.kind === 'ok' ? icon.out : st.kind === 'lock' ? icon.lock : st.kind === 'gone' ? icon.check : '';
+      const n = this.stepOf(id);
+      return `<button class="cell ${st.kind}${sel}" data-id="${id}" role="listitem" aria-label="${n}. ${esc(d.name)}：${esc(st.text)}" title="${esc(st.text)}">
+        <span class="num">${n}</span><span class="mark">${mark}</span>
+        <span class="cname">${esc(d.name)}</span></button>`;
+    };
+    const base = this.model.parts.find((p) => !p.removable && !p.parent);
+    const baseCell = base
+      ? `<button class="cell base${this.selected === base.id ? ' selected' : ''}" data-id="${base.id}" aria-label="${esc(base.name)}：${esc(this.status(base.id).text)}">
+          <span class="num">骨架</span><span class="cname">${esc(base.name)}</span></button>`
+      : '';
+    this.el.list.innerHTML = this.model.guideOrder.map(cell).join('');
+    this.el.mat.querySelector('.mat-foot')!.innerHTML = baseCell;
+    this.el.mat.querySelectorAll<HTMLButtonElement>('.cell').forEach((b) =>
       b.addEventListener('click', () => this.select(b.dataset.id!, { fromList: true })),
     );
-    const removable = this.model.parts.filter((p) => p.removable).length;
-    this.el.progress.innerHTML = `已拆 <b>${this.removalOrder.length}</b> / ${removable} 個零件`;
+    const total = this.model.guideOrder.length;
+    const off = this.removalOrder.length;
+    this.el.progress.innerHTML = `已拆 <b>${off}</b> / ${total}`;
+    this.el.root.querySelector('.mat-count')!.textContent = off ? String(off) : '';
+  }
+
+  private renderOverview(): string {
+    const [w, hh, d] = this.model.size;
+    const jump = (id: string, line: string) =>
+      `<button class="jump" data-goto="${id}"><b>${esc(this.def(id).name)}</b><span>${line}</span></button>`;
+    return `<div class="card overview">
+        <h2>動手拆開它</h2>
+        <p class="summary">這是一支可以拆的 3D ${esc(this.model.name)}。${this.model.guideOrder.length} 個零件照拆解影片的順序編號，拆下來的會擺到零件墊上。</p>
+        <ol class="howto">
+          <li>拖曳旋轉，滾輪或雙指縮放。</li>
+          <li>點一下零件看介紹。發亮的零件現在就拆得下來。</li>
+          <li>按「拆下」往裡面走；被擋住的零件會告訴你要先拆哪個。</li>
+          <li>想照影片的順序看，就一直按「下一步」。</li>
+        </ol>
+        <h3>這一代最值得看的三個地方</h3>
+        <div class="jumps">
+          ${jump('vc', '面積是上一代的三倍多，幾乎蓋住整支手機')}
+          ${jump('faceId', '紅外鏡頭藏到螢幕底下，靈動島因此變小')}
+          ${jump('soc', '記憶體從疊在處理器上面改成擺在旁邊')}
+        </div>
+        <dl class="specs">
+          <div><dt>機身尺寸</dt><dd>${w} × ${hh} × ${d} mm</dd></div>
+          <div><dt>拆解影片</dt><dd><a href="${this.model.source.url}" target="_blank" rel="noopener">微機分 WekiHome</a>，${esc(this.model.source.date)}</dd></div>
+        </dl>
+        <p class="geo-note">${esc(this.model.sizeNote)}厚度方向的位置是推估的。</p>
+      </div>`;
+  }
+
+  private bindGoto(panel: HTMLElement): void {
+    panel.querySelectorAll<HTMLButtonElement>('[data-goto]').forEach((b) =>
+      b.addEventListener('click', () => this.select(b.dataset.goto!, { fromList: true })),
+    );
   }
 
   private renderInfo(): void {
     const id = this.selected;
     const panel = this.el.info;
+    panel.classList.toggle('open', !!id);
+    const changed = this.infoShown !== id;
+    this.infoShown = id;
     if (!id) {
-      panel.classList.remove('open');
-      panel.innerHTML = `<div class="info-empty">
-        <h2>${esc(this.model.name)}</h2>
-        <p>點選手機上的任何零件，這裡會告訴你它是什麼、做什麼用，以及拆解影片裡發現的小知識。</p>
-        <p class="muted">${esc(this.model.sizeNote)}</p></div>`;
+      panel.innerHTML = this.renderOverview();
+      this.bindGoto(panel);
+      if (changed) panel.scrollTop = 0;
       this.updateInsets();
       return;
     }
@@ -328,59 +336,53 @@ export class App {
     const focusOn = this.viewer.focus === id || this.viewer.inspect === id;
     const btns: string[] = [];
     if (d.removable) {
-      if (st.kind === 'ok') btns.push(`<button class="primary act" data-act="remove">${icon.out}拆下</button>`);
-      if (st.kind === 'lock') btns.push(`<button class="primary act" data-act="through">${icon.out}幫我拆到這裡</button>`);
-      if (st.kind === 'gone') btns.push(`<button class="primary act" data-act="install">${icon.undo}裝回去</button>`);
+      if (st.kind === 'ok') btns.push(`<button class="primary act" data-act="remove">拆下</button>`);
+      if (st.kind === 'lock') btns.push(`<button class="primary act" data-act="through">幫我拆到這裡</button>`);
+      if (st.kind === 'gone') btns.push(`<button class="primary act" data-act="install">裝回去</button>`);
     }
     if (this.assembly.isInstalled(id) || d.removable)
       btns.push(`<button class="act" data-act="focus">${focusOn ? icon.close + '離開特寫' : icon.zoom + '特寫'}</button>`);
     if (d.extra) {
       const on = this.viewer.extrasOn.has(id);
-      btns.push(`<button class="act extra" data-act="extra" aria-pressed="${on}">${icon.sparkle}${EXTRA_LABEL[d.extra][on ? 1 : 0]}</button>`);
+      btns.push(`<button class="act extra" data-act="extra" aria-pressed="${on}">${EXTRA_LABEL[d.extra][on ? 1 : 0]}</button>`);
     }
     const t = (s?: { t: string }) =>
       s ? `<a class="ts" href="${this.model.source.url}?t=${toSeconds(s.t)}" target="_blank" rel="noopener" title="在影片中查看">${icon.play}${s.t}</a>` : '';
-    panel.classList.add('open');
+    const kids = this.model.parts.filter((p) => p.parent === id);
+    const step = d.removable ? `<span class="step">第 ${this.stepOf(id)} 個拆</span>` : '';
     panel.innerHTML = `
       <div class="card">
         <button class="icon-btn close" aria-label="關閉">${icon.close}</button>
-        <div class="badge">${categoryIcon[d.category]}${categoryName[d.category]}</div>
+        <div class="meta"><span class="kind">${categoryIcon[d.category]}${categoryName[d.category]}</span>${step}</div>
         <h2>${esc(d.name)}</h2>
         ${d.subtitle ? `<div class="subtitle">${esc(d.subtitle)}</div>` : ''}
         <div class="status ${st.kind}">${st.kind === 'lock' ? icon.lock : ''}${esc(st.text)}</div>
         <div class="actions">${btns.join('')}</div>
         <p class="summary">${esc(d.summary)}</p>
+        ${
+          kids.length
+            ? `<h3>焊在上面的晶片</h3><div class="jumps">${kids
+                .map((k) => `<button class="jump" data-goto="${k.id}"><b>${esc(k.name)}</b>${k.subtitle ? `<span>${esc(k.subtitle)}</span>` : ''}</button>`)
+                .join('')}</div>`
+            : ''
+        }
+        ${d.parent ? `<div class="jumps"><button class="jump" data-goto="${d.parent}"><span>它焊在</span><b>${esc(this.def(d.parent).name)}</b></button></div>` : ''}
         ${d.specs?.length ? `<dl class="specs">${d.specs.map((s) => `<div><dt>${esc(s.label)}</dt><dd>${esc(s.value)} ${t(s.source)}</dd></div>`).join('')}</dl>` : ''}
         ${d.facts?.length ? `<h3>拆解發現</h3><ul class="facts">${d.facts.map((f) => `<li>${esc(f.text)} ${t(f.source)}</li>`).join('')}</ul>` : ''}
-        <p class="geo-note">${d.geometry === 'observed' ? '' : '這個零件在拆解影像裡被其他零件擋住，外形與位置是推估的。'}</p>
+        ${d.geometry === 'observed' ? '' : '<p class="geo-note">這個零件在拆解影像裡被其他零件擋住，外形與位置是推估的。</p>'}
       </div>`;
+    if (changed) panel.scrollTop = 0;
     panel.querySelector('.close')!.addEventListener('click', () => this.select(null));
     panel.querySelectorAll<HTMLButtonElement>('.act').forEach((b) => b.addEventListener('click', () => this.action(b.dataset.act!, id)));
+    this.bindGoto(panel);
     this.updateInsets();
-  }
-
-  private renderTray(): void {
-    const items = this.removalOrder;
-    this.el.trayItems.innerHTML = items.length
-      ? items
-          .map((id) => {
-            const d = this.def(id);
-            return `<button class="tray-item${this.selected === id ? ' selected' : ''}" data-id="${id}">${categoryIcon[d.category]}<span>${esc(d.name)}</span></button>`;
-          })
-          .join('')
-      : '<div class="tray-empty">還沒有拆下任何零件</div>';
-    this.el.trayItems.querySelectorAll<HTMLButtonElement>('.tray-item').forEach((b) =>
-      b.addEventListener('click', () => this.select(b.dataset.id!, { inspect: true })),
-    );
-    this.el.root.querySelector('.tray-count')!.textContent = items.length ? String(items.length) : '';
-    this.el.tray.classList.toggle('has-items', items.length > 0);
   }
 
   private renderToolbar(): void {
     this.el.undo.disabled = this.history.length === 0;
     this.el.reset.disabled = this.removalOrder.length === 0;
     const done = !this.model.guideOrder.some((id) => this.assembly.isInstalled(id));
-    this.el.next.querySelector('span')!.textContent = done ? '重新開始' : '下一步';
+    this.el.next.querySelector('span')!.textContent = done ? '全部組回，重新開始' : '下一步';
     this.el.caption.innerHTML = this.guideCaption;
     this.el.caption.classList.toggle('show', !!this.guideCaption);
   }
@@ -471,7 +473,7 @@ export class App {
         break;
       case 'through': {
         const pre = this.assembly.planRemove(id).slice(0, -1);
-        if (pre.length) this.toast(`先拆下${this.names(pre.map((s) => s.id))}…`);
+        if (pre.length) this.toast(`先拆下${this.names(pre.map((s) => s.id))}`);
         this.run(() => this.assembly.planRemove(id));
         break;
       }
@@ -593,12 +595,16 @@ export class App {
     const d = this.def(target);
     const idx = this.model.guideOrder.indexOf(target) + 1;
     this.select(target);
-    this.guideCaption = `<b>導覽 ${idx}/${this.model.guideOrder.length}</b>${esc(d.guideLine ?? `取出${d.name}。`)}`;
+    this.guideCaption = `<b>第 ${idx} / ${this.model.guideOrder.length} 步</b>${esc(d.guideLine ?? `取出${d.name}。`)}`;
     this.renderToolbar();
     this.guiding = true;
     try {
       await this.ensureVisible(target);
       await this.run(() => this.assembly.nextGuided(this.model.guideOrder));
+      if (!this.model.guideOrder.some((x) => this.assembly.isInstalled(x)) && this.guideCaption) {
+        this.guideCaption = `<b>拆完了</b>${this.model.guideOrder.length} 個零件都在零件墊上，點任何一格可以拿起來再看一次。`;
+        this.renderToolbar();
+      }
     } finally {
       this.guiding = false;
     }
@@ -689,8 +695,7 @@ export class App {
     window.addEventListener('keydown', (e) => {
       if ((e.target as HTMLElement).tagName === 'INPUT') return;
       if (e.key === 'Escape') {
-        if (this.el.onboarding.classList.contains('show')) this.closeOnboarding();
-        else if (this.viewer.focus || this.viewer.inspect) {
+        if (this.viewer.focus || this.viewer.inspect) {
           this.exitFocus(true);
           this.renderInfo();
         } else this.select(null);

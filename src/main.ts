@@ -1,5 +1,5 @@
 import './styles.css';
-import { phones } from './data/phones';
+import { iphone18Pro } from './data/phones/iphone-18-pro';
 import { App } from './ui/app';
 
 const host = document.getElementById('root')!;
@@ -39,7 +39,7 @@ let attempt = 0;
 
 /** Load the model, then start the app. Controls only exist once the geometry is in place. */
 async function boot(): Promise<void> {
-  const phone = phones[0];
+  const phone = iphone18Pro;
   const mine = ++attempt; // a retry supersedes any load still in flight
   const progress = showLoading(phone.name);
   let objs;

@@ -41,9 +41,9 @@ const REMOVE_DIST = 90;
 const INSPECT_OUT = 0.42;
 
 const TINT = {
-  selected: new Color('#38bdf8'),
-  ok: new Color('#2dd4bf'),
-  blocked: new Color('#f59e0b'),
+  selected: new Color('#fff6ea'),
+  ok: new Color('#dbeaff'),
+  blocked: new Color('#ff8a3d'),
 };
 
 /**
