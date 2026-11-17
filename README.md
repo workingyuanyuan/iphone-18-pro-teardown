@@ -2,6 +2,8 @@
 
 用 3D 互動方式一層層拆開 **iPhone 18 Pro**，讓一般人看懂這支手機裡的每個零件。本站只專注這一款機型，內容依據微機分 WekiHome 的拆解影片（<https://youtu.be/BLKegH19KGI>，2026-09-20）。
 
+線上版：<https://workingyuanyuan.github.io/iphone-18-pro-teardown/>（push 到 `main` 會由 GitHub Actions 自動建置並部署）
+
 ## 開發
 
 ```bash
