@@ -4,3 +4,4 @@ refs/
 tools/blender/.vendor/
 __pycache__/
 public/models/*.raw.glb
+tools/og/phone-explode.png
