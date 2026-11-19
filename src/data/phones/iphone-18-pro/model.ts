@@ -6,11 +6,8 @@ import { parts } from './parts';
 /**
  * iPhone 18 Pro geometry: built offline with Blender from the measurements in
  * tools/measure/models/iphone-18-pro (see docs/measurements.md), shipped as one GLB.
- * Body size is Apple's published drawing value.
+ * Body size (meta.ts) is Apple's published drawing value.
  */
-export const W = 71.85;
-export const H = 150.01;
-export const D = 8.75;
 
 export const MODEL_URL = `${import.meta.env.BASE_URL}models/iphone-18-pro.glb`;
 

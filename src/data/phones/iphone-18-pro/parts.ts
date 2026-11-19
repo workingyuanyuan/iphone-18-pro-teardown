@@ -1,4 +1,4 @@
-import type { PartDef } from '../../../core/types';
+import type { PartDef } from '../../../core/types.ts';
 
 /**
  * iPhone 18 Pro part manifest. Facts come from the WekiHome teardown
